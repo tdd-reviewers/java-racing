@@ -8,6 +8,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
 public class SetTest {
@@ -47,6 +48,12 @@ public class SetTest {
         Assertions.assertThat(size).isEqualTo(3);
     }
 
+    @ParameterizedTest(name = "{arguments}, Exists")
+    @DisplayName("Set에 아래의 값들이 있을까?")
+    @ValueSource(ints = { 1, 2, 3 })
+    void case2(int value) {
+        assertThat(numbers.contains(value)).isTrue();
+    }
 
     @ParameterizedTest(name = "{arguments}, Not Exists")
     @DisplayName("Set에 아래의 값들이 없을까?")
@@ -55,11 +62,11 @@ public class SetTest {
         assertThat(numbers.contains(value)).isFalse();
     }
 
-    @ParameterizedTest(name = "{arguments}, Exists")
-    @DisplayName("Set에 아래의 값들이 있을까?")
-    @ValueSource(ints = { 1, 2, 3 })
-    void case2(int value) {
-        assertThat(numbers.contains(value)).isTrue();
+    @ParameterizedTest(name = "{arguments}, Not Exists")
+    @DisplayName("Set에 아래의 값들이 없음을 판단할 수 있을까?")
+    @CsvSource( value= { "true", "4", "5" })
+    void case4(String value) {
+        assertThat(numbers.contains(value)).isFalse();
     }
 
 

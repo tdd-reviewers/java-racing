@@ -3,6 +3,7 @@ plugins {
 }
 
 version '1.0'
+sourceCompatibility = '17'
 
 repositories {
     mavenCentral()
@@ -11,12 +12,6 @@ repositories {
 dependencies {
     testImplementation 'org.assertj:assertj-core:3.22.0'
     testImplementation 'org.junit.jupiter:junit-jupiter:5.8.2'
-}
-
-java {
-    toolchain {
-        languageVersion = JavaLanguageVersion.of(17)
-    }
 }
 
 test {

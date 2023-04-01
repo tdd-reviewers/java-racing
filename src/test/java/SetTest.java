@@ -28,11 +28,12 @@ public class SetTest {
     void case1() {
         //given
 
-        //when
-        int size = numbers.size();
+       //when
+        Optional<Integer> member = numbers.stream().findAny();
 
-        //then
-        Assertions.assertThat(size).isInstanceOf(Integer.class);
+        // then
+        assertThat(member.isPresent()).isTrue();
+        Assertions.assertThat(member.get()).isInstanceOf(Integer.class);
     }
 
     @Test

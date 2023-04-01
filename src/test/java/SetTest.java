@@ -57,16 +57,16 @@ public class SetTest {
 
     @ParameterizedTest(name = "{arguments}, Not Exists")
     @DisplayName("Set에 아래의 값들이 없을까?")
-    @ValueSource(ints = { 0,5,6 })
+    @ValueSource(ints = { 0, 5, 6 })
     void case3(int value) {
         assertThat(numbers.contains(value)).isFalse();
     }
 
     @ParameterizedTest(name = "{arguments}, Not Exists")
     @DisplayName("Set에 아래의 값들이 없음을 판단할 수 있을까?")
-    @CsvSource( value= { "true", "4", "5" })
-    void case4(String value) {
-        assertThat(numbers.contains(value)).isFalse();
+    @CsvSource( value= { "1:false", "4:false", "5:false" }, delimiter = ':')
+    void case4(String value, boolean expected) {
+        assertThat(numbers.contains(value)).isEqualTo(expected);
     }
 
 

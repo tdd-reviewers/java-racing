@@ -2,6 +2,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;

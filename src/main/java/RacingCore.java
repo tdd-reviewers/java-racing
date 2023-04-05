@@ -5,6 +5,11 @@ public class RacingCore {
     private List<RacingCars> racingCars;
     private long count = 0;
 
+    public long getCount() {
+        return count;
+    }
+
+
     public RacingCore(List<RacingCars> racingCars, long count) {
         this.racingCars = racingCars;
         this.count = count;

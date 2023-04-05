@@ -2,17 +2,19 @@ import java.util.Random;
 
 public class RacingCars {
 
-    private final Random random;
+    private final RandomWrapper random;
     private long location = 0;
 
+    public long getLocation() {
+        return location;
+    }
 
-    RacingCars(Random random){
-        this.random = random;
+    RacingCars(RandomWrapper randomWrapper){
+        this.random = randomWrapper;
     }
 
     protected boolean isGo() {
-        Random random = new Random();
-        if (random.nextInt(10) >= 4) {
+        if (random.nextRandom(10) >= 4) {
             return true;
         }
 

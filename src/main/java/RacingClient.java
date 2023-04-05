@@ -23,7 +23,7 @@ public class RacingClient {
 
     private static void run() {
         List<RacingCars> cars = new ArrayList<>();
-        Random random = new Random();
+        RandomWrapper random = new RandomWrapper();
 
         for (int i = 0; i < carCount; i++) {
             RacingCars car = new RacingCars(random); // location은 0으로 초기화

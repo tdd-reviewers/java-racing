@@ -1,5 +1,6 @@
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 
+import java.util.LinkedList;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -10,25 +11,31 @@ import org.junit.jupiter.params.provider.CsvSource;
 //2. 입력 문자열의 숫자와 사칙 연산 사이에는 반드시 빈 공백 문자열이 있다고 가정한다.
 //3. 나눗셈의 경우 결과 값을 정수로 떨어지는 값으로 한정한다.
 
+/**
+ * 통합테스트
+ */
 class CalculatorTest {
+
+    Calculator calculator = new Calculator(new LinkedList<>(), new LinkedList<>());
+    Client client = new Client(calculator);
 
     @Test
     @DisplayName("예상치 못한 입력에도 에러가 잘 발생할까?")
     void dirtyInputTest1() {
         String dirtyInput = "";
-        assertThatThrownBy(() -> new Calculator().calc(dirtyInput))
+        assertThatThrownBy(() -> client.calc(dirtyInput))
             .isInstanceOf(IllegalArgumentException.class);
 
         String dirtyInput2 = " ";
-        assertThatThrownBy(() -> new Calculator().calc(dirtyInput2))
+        assertThatThrownBy(() -> client.calc(dirtyInput2))
             .isInstanceOf(IllegalArgumentException.class);
 
         String dirtyInput3 = "  ";
-        assertThatThrownBy(() -> new Calculator().calc(dirtyInput3))
+        assertThatThrownBy(() -> client.calc(dirtyInput3))
             .isInstanceOf(IllegalArgumentException.class);
 
         String dirtyInput4 = null;
-        assertThatThrownBy(() -> new Calculator().calc(dirtyInput4))
+        assertThatThrownBy(() -> client.calc(dirtyInput4))
             .isInstanceOf(IllegalArgumentException.class);
     }
 
@@ -40,7 +47,7 @@ class CalculatorTest {
         //given: input이 입력되고
 
         //when: 계산했을 때
-        String calcResult = new Calculator().calc(input);
+        String calcResult = client.calc(input);
 
         //then: result 결과와 같아야 한다.
         Assertions.assertThat(calcResult).isEqualTo(result);
@@ -53,7 +60,7 @@ class CalculatorTest {
         //given: input이 입력되고
 
         //when: 계산했을 때
-        String calcResult = new Calculator().calc(input);
+        String calcResult = client.calc(input);
 
         //then: result 결과와 같아야 한다.
         Assertions.assertThat(calcResult).isEqualTo(result);
@@ -66,7 +73,7 @@ class CalculatorTest {
         //given: input이 입력되고
 
         //when: 계산했을 때
-        String calcResult = new Calculator().calc(input);
+        String calcResult = client.calc(input);
 
         //then: result 결과와 같아야 한다.
         Assertions.assertThat(calcResult).isEqualTo(result);
@@ -79,7 +86,7 @@ class CalculatorTest {
         //given: input이 입력되고
 
         //when: 계산했을 때
-        String calcResult = new Calculator().calc(input);
+        String calcResult = client.calc(input);
 
         //then: result 결과와 같아야 한다.
         Assertions.assertThat(calcResult).isEqualTo(result);
@@ -92,7 +99,7 @@ class CalculatorTest {
         //given: input이 입력되고
 
         //when: 계산했을 때
-        String calcResult = new Calculator().calc(input);
+        String calcResult = client.calc(input);
 
         //then: result 결과와 같아야 한다.
         Assertions.assertThat(calcResult).isEqualTo(result);
@@ -105,7 +112,7 @@ class CalculatorTest {
         //given: input이 입력되고
 
         //when: 계산했을 때
-        String calcResult = new Calculator().calc(input);
+        String calcResult = client.calc(input);
 
         //then: result 결과와 같아야 한다.
         Assertions.assertThat(calcResult).isEqualTo(result);
@@ -120,7 +127,7 @@ class CalculatorTest {
         //given: input이 입력되고
 
         //when: 계산했을 때
-        String calcResult = new Calculator().calc(input);
+        String calcResult = client.calc(input);
 
         //then: result 결과와 같아야 한다.
         Assertions.assertThat(calcResult).isEqualTo(result);
@@ -133,7 +140,7 @@ class CalculatorTest {
         //given: input이 입력되고
 
         //when: 계산했을 때
-        String calcResult = new Calculator().calc(input);
+        String calcResult = client.calc(input);
 
         //then: result 결과와 같아야 한다.
         Assertions.assertThat(calcResult).isEqualTo(result);
@@ -146,7 +153,7 @@ class CalculatorTest {
         //given: input이 입력되고
 
         //when: 계산했을 때
-        String calcResult = new Calculator().calc(input);
+        String calcResult = client.calc(input);
 
         //then: result 결과와 같아야 한다.
         Assertions.assertThat(calcResult).isEqualTo(result);

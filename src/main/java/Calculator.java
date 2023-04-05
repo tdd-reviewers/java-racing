@@ -10,15 +10,41 @@ public class Calculator {
     private long result = 0;
     private long value1 = Long.MIN_VALUE;
 
-    private final Queue<String> opQueue = new LinkedList<>();
-    private final Queue<String> nQueue = new LinkedList<>();
-    public String calc(String input) {
-        validation(input);
-        initialize(input);
-        process();
-        return printResult();
+    private final Queue<String> opQueue;
+    private final Queue<String> nQueue;
+
+    public Calculator(Queue<String> opQueue, Queue<String> nQueue) {
+        this.opQueue = opQueue;
+        this.nQueue = nQueue;
     }
-    private void validation(String input) {
+
+    protected void initialize(String input) {
+        String[] parsedInputs = input.split(" ");
+
+        for (String parsedInput : parsedInputs) {
+            if (isOperator(parsedInput)) {
+                opQueue.add(parsedInput);
+                continue;
+            }
+
+            nQueue.add(parsedInput);
+        }
+    }
+
+    protected void process() {
+        while (!nQueue.isEmpty()) {
+            String operator = opQueue.poll();
+            value1 = getNextValue1();
+            long value2 = getNextValue2();
+            result = calc(operator, value1, value2);
+        }
+    }
+
+    protected long getResult() {
+        return result;
+    }
+
+    protected void validation(String input) {
         if (input == null) {
             throw new IllegalArgumentException();
         }
@@ -28,16 +54,7 @@ public class Calculator {
         }
     }
 
-    private void process() {
-        while (!nQueue.isEmpty()) {
-            String operator = opQueue.poll();
-            value1 = getNextValue1();
-            long value2 = getNextValue2();
-            result = calc(operator, value1, value2);
-        }
-    }
-
-    private long calc(String operator, long a, long b) {
+    protected long calc(String operator, long a, long b) {
         if (Objects.equals(operator, ADD)) {
             return a + b;
         }
@@ -57,7 +74,7 @@ public class Calculator {
         throw new IllegalArgumentException();
     }
 
-    private long getNextValue1() {
+    protected long getNextValue1() {
         if (value1 == Long.MIN_VALUE && !nQueue.isEmpty()){
             return Long.parseLong(nQueue.poll());
         }
@@ -65,7 +82,7 @@ public class Calculator {
         return result;
     }
 
-    private long getNextValue2() {
+    protected long getNextValue2() {
         if (nQueue.isEmpty()) {
             throw new IllegalArgumentException();
         }
@@ -73,35 +90,17 @@ public class Calculator {
         return Long.parseLong(nQueue.poll());
     }
 
-    private void initialize(String input) {
-        String[] parsedInputs = input.split(" ");
-
-        for (String parsedInput : parsedInputs) {
-            if (isOperator(parsedInput)) {
-                opQueue.add(parsedInput);
-                continue;
-            }
-
-            nQueue.add(parsedInput);
-        }
-    }
-
-    private boolean isOperator(String c) {
+    protected boolean isOperator(String c) {
         return !isNumeric(c);
     }
 
-    private boolean isNumeric(String str) {
+    public boolean isNumeric(String str) {
+
         try {
             Double.parseDouble(str);
-        } catch (NumberFormatException nfe) {
+        } catch (Exception nfe) {
             return false;
         }
         return true;
-    }
-
-
-    private String printResult() {
-        System.out.println(result);
-        return String.valueOf(result);
     }
 }

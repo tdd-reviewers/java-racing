@@ -20,7 +20,7 @@ class RacingCarsTest {
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
-        racingCars = new RacingCars(random);
+        racingCars = new RacingCars(random, "noname");
     }
 
     @Test
@@ -74,6 +74,7 @@ class RacingCarsTest {
         //then: 증가해야 한다.
         Assertions.assertEquals(next - prev, 0);
     }
+
 
 
 

@@ -1,4 +1,4 @@
-import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.times;
 
 import java.util.List;
@@ -6,6 +6,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
@@ -15,13 +17,19 @@ class RacingCoreTest {
     RacingCore racingCore;
 
     @Mock
-    RacingCars racingCars;
+    RacingCars racingCar1;
+
+    @Mock
+    RacingCars racingCar2;
+
+    @Mock
+    RacingCars racingCar3;
 
 
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
-        racingCore = new RacingCore(List.of(racingCars), 5);
+        racingCore = new RacingCore(List.of(racingCar1, racingCar2, racingCar3), 5);
     }
 
     @Test
@@ -35,6 +43,24 @@ class RacingCoreTest {
 
         //Then tryCount는 0 이어야 한다.
         Assertions.assertEquals(racingCore.getCount(), 0);
-        Mockito.verify(racingCars, times(5)).go();
+        Mockito.verify(racingCar1, times(5)).go();
+    }
+
+
+    @ParameterizedTest(name = "input: {arguments} |  result: {3}")
+    @DisplayName("최대거리를 간 Car의 위치를 잘 얻을 수 있을까?")
+    @CsvSource( value= { "1:2:3:3", "4:10:5:10", "9:5:1:9" }, delimiter = ':')
+    public void testCalcMaxLocation(long a, long b, long c, long expected) {
+        Mockito.when(racingCar1.getLocation()).thenReturn(a);
+        Mockito.when(racingCar2.getLocation()).thenReturn(b);
+        Mockito.when(racingCar3.getLocation()).thenReturn(c);
+        long l = racingCore.calcMaxLocation();
+        Assertions.assertEquals(l, expected);
+
+        Mockito.verify(racingCar1, atLeast(1)).getLocation();
+    }
+
+    public void testFindWinner()  {
+        //..흠.....
     }
 }

@@ -19,14 +19,11 @@ public class CalcTest {
     }
 
     int determine(String operand, int a, int b) {
-        return switch (operand) {
-            case "+" -> add(a, b);
-            case "-" -> subtract(a, b);
-            case "*" -> multiply(a, b);
-            case "/" -> divide(a, b);
-            default ->
-                    throw new IllegalArgumentException("Invalid operation. tried: " + operand + "; should be in (+,-,*,/)");
-        };
+        if (operand.equals("+")) return add(a, b);
+        if (operand.equals("-")) return subtract(a, b);
+        if (operand.equals("*")) return multiply(a, b);
+        if (operand.equals("/")) return divide(a, b);
+        throw new IllegalArgumentException("Invalid operation. tried: " + operand + "; should be in (+,-,*,/)");
     }
 
     int add(int a, int b) {
